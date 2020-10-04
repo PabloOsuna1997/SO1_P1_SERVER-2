@@ -1,0 +1,15 @@
+#contenedor {
+    margin-top: 150px;
+}
+
+#tabla{
+    margin: 75px;
+    width: 550px;
+}
+#encabezado {
+    background-color: cadetblue;
+}
+
+#grafica {
+    margin-left: 700px;
+}
