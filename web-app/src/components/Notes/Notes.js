@@ -7,7 +7,8 @@ import './Notes.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Notes = () => {
-
+    const ipA = 'http://3.136.233.176:5002'
+    const ipB = 'http://3.136.233.176:5002'
     const { id } = useParams();
     const [resServer, setResServer] = useState()              //resources of the server
     const [notes, setNotes] = useState([])                      //notes of the server
@@ -15,9 +16,9 @@ const Notes = () => {
     async function getNotes() {
         let res = ''
         if (id == 'A') {   //call server A
-            res = await fetch('http://3.137.207.120:5000/notes');
+            res = await fetch(ipA + '/notesA');
         } else {
-            res = await fetch('http://3.137.207.120:5000/notes');
+            res = await fetch(ipB + '/notesB');
         }
         res
             .json()
@@ -30,9 +31,9 @@ const Notes = () => {
     async function getResources() {
         let res = ''
         if (id == 'A') {   //call server A
-            res = await fetch('http://3.137.207.120:5000/getres');
+            res = await fetch(ipA + '/getresA');
         } else {
-            res = await fetch('http://3.137.207.120:5000/getres');
+            res = await fetch(ipB + '/getresB');
         }
         res
             .json()
