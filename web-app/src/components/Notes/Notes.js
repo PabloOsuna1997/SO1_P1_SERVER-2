@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import TableScrollbar from 'react-table-scrollbar'
 import { Table, Container, Row, Col, Toast } from 'react-bootstrap';
-import { Bar } from 'react-chartjs-2';
+import { Bar, Line } from 'react-chartjs-2';
 import './Notes.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Notes = () => {
     const ipS2 = 'http://3.137.181.45:5002'
+    let CPU_graf = [0, 0, 0, 0]
     const { id } = useParams();
     const [resServer, setResServer] = useState()              //resources of the server
     const [notes, setNotes] = useState([])                      //notes of the server
-
     async function getNotes() {
         let res = ''
         if (id == 'A') {   //call server A
@@ -51,30 +51,41 @@ const Notes = () => {
         return () => clearInterval(interval);
     }, []);
 
-
     if (notes[0] && resServer) {
-        let data = {}
-        let opciones = {}
+        let dataL = {}
+        let opcionesL = {}
+        let RAM_graf = []
         let a = resServer.resources.RAM[0].split(':')
-        let v = a[1].substring(0, a.lenght - 1)
         let total = parseInt(a[1], 10)
         let a1 = resServer.resources.RAM[1].split(':')
-        let v1 = a1[1].substring(0, a1.lenght - 1)
         let usado = parseInt(a1[1], 10)
         let porcentaje = (usado * 100) / total
-        data = {
-            labels: ['RAM', 'CPU', 'CANTIDAD', ''],
+        let array = localStorage.getItem('arrayA')
+        array = JSON.parse(array);
+        RAM_graf[0] = array[1]
+        RAM_graf[1] = array[2]
+        RAM_graf[2] = array[3]
+        RAM_graf[3] = porcentaje
+        localStorage.setItem('arrayA', JSON.stringify(RAM_graf))
+        dataL = {
+            labels: ['', '', '', ''],
             datasets: [{
-                label: 'Porcentaje',
-                backgroundColor: 'rgba(0,255,0,1)',
+                label: 'RAM',
+                backgroundColor: 'rgba(0,255,0,0.2)',
                 borderColor: 'black',
                 borderWidth: 1,
-                hoverBackgroundColor: 'rgba(0,255,0,0.2)',
                 hoverBorderColor: '#FF0000',
-                data: [porcentaje, 10, resServer.resources.LEN, 0]
+                data: RAM_graf
+            },{
+                label: 'CPU',
+                backgroundColor: 'rgba(0,255,255,255)',
+                borderColor: 'black',
+                borderWidth: 1,
+                hoverBorderColor: '#FF0000',
+                data: [10,12,13,11]
             }]
         }
-        opciones = {
+        opcionesL = {
             maintainAspectRatio: false,
             responsive: true
         }
@@ -105,7 +116,7 @@ const Notes = () => {
                         </TableScrollbar>
                     </Col>
                     <Col>
-                        <Bar data={data} options={opciones}> </Bar>
+                        <Line data={dataL} options={opcionesL}> </Line>
                     </Col>
                 </Row>
             </Container>

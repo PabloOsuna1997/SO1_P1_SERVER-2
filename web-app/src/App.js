@@ -11,6 +11,9 @@ import Notes from './components/Notes/Notes';
 import Navbar_ from './components/Navbar/navbar';
 
 function App() {
+  const array = [0,0,0,0]
+  localStorage.setItem('arrayA', JSON.stringify(array))  
+  localStorage.setItem('arrayB', JSON.stringify(array))  
   return (    
     <Router>
       <Navbar_/>
