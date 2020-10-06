@@ -7,8 +7,7 @@ import './Notes.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Notes = () => {
-    const ipA = 'http://3.136.233.176:5002'
-    const ipB = 'http://3.136.233.176:5002'
+    const ipS2 = 'http://3.137.181.45:5002'
     const { id } = useParams();
     const [resServer, setResServer] = useState()              //resources of the server
     const [notes, setNotes] = useState([])                      //notes of the server
@@ -16,9 +15,9 @@ const Notes = () => {
     async function getNotes() {
         let res = ''
         if (id == 'A') {   //call server A
-            res = await fetch(ipA + '/notesA');
+            res = await fetch(ipS2 + '/notesA');
         } else {
-            res = await fetch(ipB + '/notesB');
+            res = await fetch(ipS2 + '/notesB');
         }
         res
             .json()
@@ -31,9 +30,9 @@ const Notes = () => {
     async function getResources() {
         let res = ''
         if (id == 'A') {   //call server A
-            res = await fetch(ipA + '/getresA');
+            res = await fetch(ipS2 + '/getresA');
         } else {
-            res = await fetch(ipB + '/getresB');
+            res = await fetch(ipS2 + '/getresB');
         }
         res
             .json()
@@ -45,9 +44,13 @@ const Notes = () => {
     }
 
     useEffect(() => {
-        getNotes();
-        getResources();
+        const interval = setInterval(() => {
+            getNotes();
+            getResources();
+        }, 5000);
+        return () => clearInterval(interval);
     }, []);
+
 
     if (notes[0] && resServer) {
         let data = {}
@@ -60,7 +63,7 @@ const Notes = () => {
         let usado = parseInt(a1[1], 10)
         let porcentaje = (usado * 100) / total
         data = {
-            labels: ['RAM', 'CPU', ''],
+            labels: ['RAM', 'CPU', 'CANTIDAD', ''],
             datasets: [{
                 label: 'Porcentaje',
                 backgroundColor: 'rgba(0,255,0,1)',
@@ -68,7 +71,7 @@ const Notes = () => {
                 borderWidth: 1,
                 hoverBackgroundColor: 'rgba(0,255,0,0.2)',
                 hoverBorderColor: '#FF0000',
-                data: [porcentaje, resServer.resources.CPU, 0]
+                data: [porcentaje, 10, resServer.resources.LEN, 0]
             }]
         }
         opciones = {
