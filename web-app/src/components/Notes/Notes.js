@@ -7,7 +7,7 @@ import './Notes.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Notes = () => {
-    const ipA = 'http://18.222.150.151:5000'}
+    const ipA = 'http://18.222.150.151:5000'
     const ipB = 'http://18.222.150.238:5000'
     let CPU_graf = [0, 0, 0, 0]
     const { id } = useParams();
@@ -77,13 +77,13 @@ const Notes = () => {
                 borderWidth: 1,
                 hoverBorderColor: '#FF0000',
                 data: RAM_graf
-            },{
+            }, {
                 label: 'CPU',
                 backgroundColor: 'rgba(0,255,255,255)',
                 borderColor: 'black',
                 borderWidth: 1,
                 hoverBorderColor: '#FF0000',
-                data: [10.2,12.3,13.4,11.5]
+                data: [10.2, 12.3, 13.4, 11.5]
             }]
         }
         opcionesL = {
@@ -133,4 +133,4 @@ const Notes = () => {
     }
 }
 
-export default Notes;
+    export default Notes;
