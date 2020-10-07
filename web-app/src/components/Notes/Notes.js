@@ -16,9 +16,9 @@ const Notes = () => {
     async function getNotes() {
         let res = ''
         if (id == 'A') {   //call server A
-            res = await fetch(ipA + '/notesA');
+            res = await fetch(ipA + '/notes');
         } else {
-            res = await fetch(ipB + '/notesB');
+            res = await fetch(ipB + '/notes');
         }
         res
             .json()
@@ -31,9 +31,9 @@ const Notes = () => {
     async function getResources() {
         let res = ''
         if (id == 'A') {   //call server A
-            res = await fetch(ipA + '/getresA');
+            res = await fetch(ipA + '/getres');
         } else {
-            res = await fetch(ipB + '/getresB');
+            res = await fetch(ipB + '/getres');
         }
         res
             .json()
