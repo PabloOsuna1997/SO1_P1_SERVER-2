@@ -7,7 +7,8 @@ import './Notes.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Notes = () => {
-    const ipS2 = 'http://3.137.181.45:5002'
+    const ipA = 'http://18.222.150.151:5000'}
+    const ipB = 'http://18.222.150.238:5000'
     let CPU_graf = [0, 0, 0, 0]
     const { id } = useParams();
     const [resServer, setResServer] = useState()              //resources of the server
@@ -15,9 +16,9 @@ const Notes = () => {
     async function getNotes() {
         let res = ''
         if (id == 'A') {   //call server A
-            res = await fetch(ipS2 + '/notesA');
+            res = await fetch(ipA + '/notesA');
         } else {
-            res = await fetch(ipS2 + '/notesB');
+            res = await fetch(ipB + '/notesB');
         }
         res
             .json()
@@ -30,9 +31,9 @@ const Notes = () => {
     async function getResources() {
         let res = ''
         if (id == 'A') {   //call server A
-            res = await fetch(ipS2 + '/getresA');
+            res = await fetch(ipA + '/getresA');
         } else {
-            res = await fetch(ipS2 + '/getresB');
+            res = await fetch(ipB + '/getresB');
         }
         res
             .json()
