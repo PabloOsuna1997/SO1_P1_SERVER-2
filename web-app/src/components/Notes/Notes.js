@@ -82,7 +82,7 @@ const Notes = () => {
                 borderColor: 'black',
                 borderWidth: 1,
                 hoverBorderColor: '#FF0000',
-                data: [10,12,13,11]
+                data: [10.2,12.3,13.4,11.5]
             }]
         }
         opcionesL = {
