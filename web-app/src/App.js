@@ -14,6 +14,9 @@ function App() {
   const array = [0,0,0,0]
   localStorage.setItem('arrayA', JSON.stringify(array))  
   localStorage.setItem('arrayB', JSON.stringify(array))  
+  const array_cpu= [0,0,0,0]
+  localStorage.setItem('arrayA_cpu', JSON.stringify(array_cpu))  
+  localStorage.setItem('arrayB_cpu', JSON.stringify(array_cpu)) 
   return (    
     <Router>
       <Navbar_/>

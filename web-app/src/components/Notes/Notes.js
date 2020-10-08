@@ -7,9 +7,8 @@ import './Notes.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Notes = () => {
-    const ipA = 'http://18.222.150.151:5000'
-    const ipB = 'http://18.222.150.238:5000'
-    let CPU_graf = [0, 0, 0, 0]
+    const ipA = 'http://13.58.167.5:5000'
+    const ipB = 'http://18.223.169.91:5000'
     const { id } = useParams();
     const [resServer, setResServer] = useState()              //resources of the server
     const [notes, setNotes] = useState([])                      //notes of the server
@@ -59,7 +58,8 @@ const Notes = () => {
         let a = resServer.resources.RAM[0].split(':')
         let total = parseInt(a[1], 10)
         let a1 = resServer.resources.RAM[1].split(':')
-        let usado = parseInt(a1[1], 10)
+        let libre = parseInt(a1[1], 10)
+        let usado = total - libre
         let porcentaje = (usado * 100) / total
         let array = localStorage.getItem('arrayA')
         array = JSON.parse(array);
@@ -68,6 +68,21 @@ const Notes = () => {
         RAM_graf[2] = array[3]
         RAM_graf[3] = porcentaje
         localStorage.setItem('arrayA', JSON.stringify(RAM_graf))
+
+        let CPU_graf = []
+        let a_cpu = resServer.resources.CPU[0].split(':')
+        let total_cpu = parseInt(a_cpu[1], 10)
+        let a1_cpu = resServer.resources.CPU[1].split(':')
+        let usado_cpu = parseInt(a1_cpu[1], 10)
+        let porcentaje_cpu = (usado_cpu / total_cpu) * 100
+        let array_cpu = localStorage.getItem('arrayA_cpu')
+        array_cpu = JSON.parse(array_cpu);
+        CPU_graf[0] = array_cpu[1]
+        CPU_graf[1] = array_cpu[2]
+        CPU_graf[2] = array_cpu[3]
+        CPU_graf[3] = porcentaje_cpu
+        localStorage.setItem('arrayA_cpu', JSON.stringify(CPU_graf))
+
         dataL = {
             labels: ['', '', '', ''],
             datasets: [{
@@ -83,7 +98,7 @@ const Notes = () => {
                 borderColor: 'black',
                 borderWidth: 1,
                 hoverBorderColor: '#FF0000',
-                data: [10.2, 12.3, 13.4, 11.5]
+                data: CPU_graf
             }]
         }
         opcionesL = {
@@ -119,6 +134,10 @@ const Notes = () => {
                     <Col>
                         <Line data={dataL} options={opcionesL}> </Line>
                     </Col>
+                    <div>
+                        <h3>CPU: {porcentaje_cpu.toFixed(3)}%</h3>
+                        <h3>RAM: {porcentaje.toFixed(3)}%</h3>
+                    </div>
                 </Row>
             </Container>
         )
@@ -133,4 +152,4 @@ const Notes = () => {
     }
 }
 
-    export default Notes;
+export default Notes;
